@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/notification_service";
+
+message NotificationStatus {
+    string id = 1;
+    string name = 2;
+}
+
+message NotificationReceivers {
+    string receiver_id = 1;
+    string receiver_type = 2;
+    string content = 3;
+    string notification_id = 4;
+    NotificationStatus status = 8;
+}
+
+message Notification {
+    string id = 1;
+    string content = 2;
+    string sender_id = 3;
+    string sender_type = 4;
+    repeated NotificationReceivers receivers = 5;
+    string order_id = 6;
+    string username = 7;
+    NotificationStatus status = 8;
+    string sent_date = 9;
+    string shipper_id = 10;
+    string title = 11;
+    string type = 12;
+    string status_id = 13;
+}

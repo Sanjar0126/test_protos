@@ -1,0 +1,124 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/content_service";
+
+import "common.proto";
+
+service UserReviewsService {
+    rpc Create(UserReviews) returns (UserReviewsId) {}
+    rpc GetCustomReviewsReport(GetCustomReviewsReportRequest) returns (GetCustomReviewsReportResponse) {}
+    rpc GetBranchesReviewsReport(GetBranchesReviewsReportRequest) returns (GetBranchesReviewsReportResponse) {}
+    rpc GetOperatorReviewsReport(GetOperatorReviewsReportRequest) returns (GetOperatorReviewsReportResponse) {}
+    rpc GetAllReviewsReport(GetAllReviewsReportRequest) returns (GetAllReviewsReportResponse) {}
+}
+
+message GetAllReviewsReportRequest {
+    string shipper_id = 1;
+    string branch_id = 2;
+    string start_date = 3;
+    string end_date = 4;
+    string courier_id = 5;
+    string client_id = 6;
+    string operator_id = 7;
+}
+
+message GetAllReviewsReportResponse {
+    repeated RelatedSubject reports = 1;
+}
+
+message GetCustomReviewsReportRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+    string branch_id = 4;
+    string courier_id = 5;
+    string client_id = 6;
+    string operator_id = 7;
+    int64 page = 8;
+    int64 limit = 9;
+}
+
+message GetCustomReviewsReportResponse {
+    message CustomReviewTypeReport {
+        string review_type = 1;
+        int64 count = 2;
+        int64 percent = 3;
+        repeated UserReviews user_reviews = 4;
+    }
+
+    repeated CustomReviewTypeReport type_reports = 1;
+}
+
+message UserReviews {
+    string id = 1;
+    string lang = 2;
+    string type = 3;
+    string shipper_id = 4;
+    string review_id =6;
+    int64   order_num = 7;
+    string delivery_time = 8;
+    string courier_name = 9;
+    string courier_id = 10;
+    string operator_name = 11;
+    string operator_id = 12;
+    string client_name = 13;
+    string client_phone = 14;
+    string client_id = 15;
+    string branch_id = 16;
+    string review_message = 17;
+    string created_at = 18;
+    string branch_name = 19;
+    string related_subject = 20;
+}
+
+message GetBranchesReviewsReportRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+}
+
+message GetBranchesReviewsReportResponse {
+    repeated BranchReport branch_reports = 1;
+    int64 count = 2;
+    repeated RelatedSubject related_subject_report = 3;
+}
+
+message BranchReport {
+    string id = 1;
+    string name = 2;
+    repeated RelatedSubject related_subjects = 3;
+}
+
+message RelatedSubject {
+    string subject_name = 1;
+    repeated TypeReport type_reports = 2;
+}
+
+message TypeReport {
+    string type = 1;
+    int64 count = 2;
+    int64 percent = 3;
+}
+
+message GetOperatorReviewsReportRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+}
+
+message GetOperatorReviewsReportResponse {
+    repeated OperatorReport operator_reports = 1;
+    int64 count = 2;
+    repeated RelatedSubject related_subject_report = 3;
+}
+
+message OperatorReport {
+    string id = 1;
+    string name = 2;
+    repeated RelatedSubject related_subjects = 3;
+}
+
+message UserReviewsId {
+    string id = 1;
+}

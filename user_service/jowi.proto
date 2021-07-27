@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/user_service";
+
+message JowiCredentials {
+    string shipper_id = 1;
+    string dispatcher_id = 2;
+    string created_at = 3;
+    string updated_at = 4;
+}

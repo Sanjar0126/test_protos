@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/user_service";
+
+import "iiko.proto";
+import "google/protobuf/empty.proto";
+
+service IikoCredentialsService {
+    rpc Create(IikoCredentials) returns (IikoCredentialsId) {}
+    rpc Update(IikoCredentials) returns (google.protobuf.Empty) {}
+    rpc Get(IikoCredentialsId) returns (IikoCredentials) {}
+    rpc Delete(IikoCredentialsId) returns (google.protobuf.Empty) {}
+}
+
+message IikoCredentialsId {
+    string shipper_id = 1;
+}

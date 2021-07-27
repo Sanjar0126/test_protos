@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/user_service";
+import "google/protobuf/wrappers.proto";
+
+message BranchUser {
+    string id = 1;
+    string name = 2;
+    string phone = 3;
+    bool   is_active = 4;
+    bool   is_blocked = 5;
+    string created_at = 6;
+    string updated_at = 7;
+    string shipper_id = 8;
+    string branch_id = 9;
+    string user_role_id = 10;
+    google.protobuf.StringValue fcm_token = 11;
+    google.protobuf.StringValue platform_id = 12;
+}

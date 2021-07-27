@@ -1,0 +1,30 @@
+syntax="proto3";
+
+package genproto;
+option go_package = "genproto/crm_service";
+
+message Menu {
+    repeated Product products = 1;
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+    float price = 3;
+    string description = 4;
+    string category_name = 5;
+    bool is_attached = 6;
+}
+
+message Branch {
+    string id = 1;
+    string name = 2;
+    bool is_attached = 3;
+}
+
+message Terminal {
+    string id = 1;
+    string name = 2;
+    string branch_id = 3;
+    bool is_attached = 4;
+}

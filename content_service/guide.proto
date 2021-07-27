@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/content_service";
+
+import "common.proto";
+
+service GuideService {
+    rpc Create (Guide) returns (GuideId) {}
+    rpc Update (Guide) returns (Empty) {}
+    rpc GetAll (Empty) returns (GetAllGuidesResponse) {}
+    rpc Get (GuideId) returns (Guide) {}
+    rpc Delete (GuideId) returns (Empty) {}
+}
+
+message GetAllGuidesResponse {
+    repeated Guide guides = 1;
+}
+
+message GuideId {
+    string id = 1;
+}
+
+message Guide {
+    string id = 1;
+    Language title = 2;
+    message Instruction {
+        string id = 1;
+        Language title = 2;
+        Language body = 3;
+        string guide_id = 4;
+        string created_at = 5;
+        string updated_at = 6;
+    }
+    repeated Instruction instructions = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}

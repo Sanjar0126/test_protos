@@ -1,0 +1,42 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/content_service";
+
+import "common.proto";
+
+service ReviewService {
+    rpc Create(Review) returns (ReviewId) {}
+    rpc Update(Review) returns (Empty) {}
+    rpc GetAll(GetAllReviewsRequest) returns (GetAllReviewsResponse) {}
+    rpc Get(ReviewId) returns (Review) {}
+    rpc Delete(ReviewId) returns (Empty) {}
+}
+
+message Review {
+    string id = 1;
+    Language message = 2;
+    string type = 3;
+    string shipper_id = 4;
+    string related_subject =5;
+    bool   active = 6;
+    string created_at = 7;
+    string updated_at = 8;
+}
+
+message GetAllReviewsResponse {
+    repeated Review reviews = 1;
+    int64 count = 2;
+    string search = 3;
+}
+
+message GetAllReviewsRequest {
+    int64  page = 1;
+    string search = 2;
+    int64  limit = 3;    
+    string shipper_id = 4;
+}
+
+message ReviewId {
+    string id = 1;
+}

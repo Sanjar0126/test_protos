@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/fare_service";
+
+import "fare.proto";
+import "google/protobuf/empty.proto";
+
+service FareService {
+    rpc Create(Fare) returns (FareId) {}
+    rpc Update(Fare) returns (google.protobuf.Empty) {}
+    rpc Get(FareId) returns (Fare) {}
+    rpc GetAll(GetAllFaresRequest) returns (GetAllFaresResponse) {}
+    rpc Delete(FareId) returns (google.protobuf.Empty) {}
+    rpc ComputeDeliveryPrice(ComputeDeliveryPriceRequest) returns (ComputeDeliveryPriceResponse) {}
+
+    rpc CreateDeliveryPrice(DeliveryPrice) returns (google.protobuf.Empty) {}
+    rpc UpdateDeliveryPrice(DeliveryPrice) returns (google.protobuf.Empty) {}
+    rpc GetDeliveryPrice(GetDeliveryPriceRequest) returns (DeliveryPrice) {}   
+}
+
+message FareId {
+    string id = 1;
+}
+
+message GetAllFaresRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+    string shipper_id = 3;
+}
+
+message GetAllFaresResponse {
+	repeated Fare fares = 1;
+	uint64 count = 2;
+}
+
+message ComputeDeliveryPriceRequest {
+    string branch_id = 1;
+    float lat = 2;
+    float long = 3;
+}
+
+message ComputeDeliveryPriceResponse {
+    float price = 1;
+    float distance = 2;
+}
+
+message GetDeliveryPriceRequest {
+	string shipper_id = 1;
+}
+
+

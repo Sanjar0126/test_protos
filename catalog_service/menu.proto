@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/catalog_service";
+
+message MenuImage {
+  string image = 2;
+  string shipper_id = 3;
+  string updated_at = 4;
+}
+

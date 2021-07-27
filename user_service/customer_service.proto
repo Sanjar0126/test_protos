@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/user_service";
+
+import "customer.proto";
+import "google/protobuf/empty.proto";
+
+service CustomerService {
+    rpc Create(Customer) returns (CustomerId) {}   
+    rpc Get(CustomerId) returns (Customer) {}
+    rpc GetAll(GetAllCustomersRequest) returns (GetAllCustomersResponse) {}
+    rpc GetAggregate(GetAllCustomersRequest) returns (GetAllCustomersResponse) {}
+    rpc GetNonAggregate(GetAllCustomersRequest) returns (GetAllCustomersResponse) {}
+    rpc Update(Customer) returns (google.protobuf.Empty) {}
+    rpc Delete(DeleteCustomerRequest) returns (google.protobuf.Empty) {}
+    rpc SearchByPhone(SearchCustomersByPhoneRequest) returns (SearchCustomersByPhoneResponse) {}
+    rpc GetOrInsert(GetCustomerOrInsertRequest) returns (CustomerId) {}
+    rpc GetByPhone(GetCustomerByPhoneRequest) returns  (Customer) {}
+    rpc UpdateFcmToken(UpdateCustomerFcmTokenRequest) returns (google.protobuf.Empty) {}
+    rpc UpdateTgChatId(UpdateCustomerTgChatIdRequest) returns (google.protobuf.Empty) {}
+    rpc GetRegisteredCustomersReport(GetRegisteredCustomersReportRequest) returns (GetRegisteredCustomersReportResponse) {}
+    rpc AttachBotLanguage(AttachBotLanguageRequest) returns (google.protobuf.Empty) {}
+}
+
+message GetRegisteredCustomersReportRequest {
+    string shipper_id = 1;
+    uint64 month = 2;
+    uint64 year = 3;
+}
+
+message GetRegisteredCustomersReportResponse {
+    repeated MontlyRegisteredCustomersReport report = 1;
+}
+
+message CustomerId {
+    string id = 1;
+}
+
+message GetCustomerOrInsertRequest {
+    string shipper_id = 1;
+    string phone = 2;
+    string name = 3;
+}
+
+message GetCustomerByPhoneRequest {
+    string shipper_id = 1;
+    string phone = 2;
+}
+
+message UpdateCustomerFcmTokenRequest {
+    string id = 1;
+    string fcm_token = 2;
+    string shipper_id = 3;
+    string platform_id = 4;
+}
+
+message UpdateCustomerTgChatIdRequest {
+    string id = 1;
+    string tg_chat_id = 2;
+    string shipper_id = 3;
+}
+
+message GetAllCustomersRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string shipper_id = 3;
+    string search = 4;
+    string customer_type_id = 5;
+}
+
+message GetAllCustomersResponse {
+    repeated Customer customers = 1;
+    uint64 count = 2;
+}
+
+message SearchCustomersByPhoneRequest {
+    string phone = 1;
+    uint64 limit = 2;
+    string shipper_id = 3;
+    string customer_type_id = 4;
+}
+
+message SearchCustomersByPhoneResponse {
+    repeated Customer customers = 1;
+}
+
+message DeleteCustomerRequest {
+    string id = 1;
+    string shipper_id = 2;
+}
+
+message AttachBotLanguageRequest {
+    string id = 1;
+    string lang = 2;
+}

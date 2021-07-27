@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package genproto;
+option go_package = "genproto/payment_service";
+
+service PaymentService {
+    rpc GeneratePaymeLink(GeneratePaymeLinkRequest) returns (Link) {}
+    rpc GenerateClickLink(GenerateClickLinkRequest) returns (Link) {}
+    rpc GetPaymeOrderTransactions(GetOrderTransactionsRequest) returns (GetOrderTransactionsResponse) {}
+    rpc GetClickOrderTransactions(GetOrderTransactionsRequest) returns (GetOrderTransactionsResponse) {}
+    rpc GetPaymeOrdersReport(GetOrdersReportRequest) returns (GetOrdersReportResponse) {}
+    rpc GetClickOrdersReport(GetOrdersReportRequest) returns (GetOrdersReportResponse) {}
+}
+
+message GeneratePaymeLinkRequest {
+    string shipper_id = 1;
+    string branch_id = 2;
+    string param_name = 3;
+    string param_value = 4;
+    int64 amount = 5;
+}
+
+message GetOrdersReportRequest {
+    string shipper_id = 1;
+    string branch_id = 2;
+    string start_date = 3;
+    string end_date = 4;
+}
+
+message GetOrdersReportResponse {
+    float total_paid_sum = 1;
+}
+
+message GetOrderTransactionsRequest {
+    string shipper_id = 1;
+    int64 order_num = 2;
+}
+
+message GetOrderTransactionsResponse {
+    repeated Transaction transactions = 1;
+}
+
+message Transaction {
+    int64 create_time = 1;
+    int64 state = 2;
+    int64 reason = 3;
+}
+
+message GenerateClickLinkRequest {
+    string shipper_id = 1;
+    string branch_id = 2;
+    int64 amount = 3;
+    string value = 4;
+}
+
+message Link {
+    string link = 1;
+}

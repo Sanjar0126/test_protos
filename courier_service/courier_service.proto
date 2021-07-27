@@ -1,0 +1,234 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+
+import "google/protobuf/empty.proto";
+import "courier.proto";
+
+service CourierService {
+	rpc Create(Courier) returns (CreateCourierResponse) {}
+	rpc Update(Courier) returns (UpdateCourierResponse) {}
+	rpc GetCourier(GetCourierRequest) returns (GetCourierResponse) {}
+	rpc GetAllCouriers(GetAllCouriersRequest) returns (GetAllCouriersResponse) {}
+	rpc ExistsCourier(ExistsCourierRequest) returns (ExistsCourierResponse) {}
+	rpc GetCourierByPhone(GetCourierByPhoneRequest) returns (Courier) {}
+	rpc GetAllDistributorCouriers(GetAllDistributorCouriersRequest) returns (GetAllDistributorCouriersResponse) {}
+	rpc Delete(DeleteCourierRequest) returns (google.protobuf.Empty) {}
+	rpc BlockCourier(BlockCourierRequest) returns (google.protobuf.Empty) {}
+	rpc UnblockCourier(UnblockCourierRequest) returns (google.protobuf.Empty) {}
+	rpc UpdateToken(UpdateTokenRequest) returns (google.protobuf.Empty) {}
+	rpc UpdateFcmToken(UpdateFcmTokenRequest) returns (google.protobuf.Empty) {}
+	rpc DeleteFcmToken(DeleteFcmTokenRequest) returns (google.protobuf.Empty) {}
+	rpc UpdateLastSeen(UpdateLastSeenRequest) returns (google.protobuf.Empty) {}
+
+	rpc CreateCourierDetails(CourierDetails) returns (CreateCourierDetailsResponse) {}
+	rpc UpdateCourierDetails(CourierDetails) returns (UpdateCourierDetailsResponse) {}
+	rpc GetCourierDetails(GetCourierDetailsRequest) returns (GetCourierDetailsResponse) {}
+
+	rpc CreateCourierVehicle(CourierVehicle) returns (CreateCourierVehicleResponse) {}
+	rpc UpdateCourierVehicle(CourierVehicle) returns (UpdateCourierVehicleResponse) {}
+	rpc GetCourierVehicle(GetCourierVehicleRequest) returns (GetCourierVehicleResponse) {}
+	rpc GetAllCourierVehicles(GetAllCourierVehiclesRequest) returns (GetAllCourierVehiclesResponse) {}
+	rpc DeleteCourierVehicle(DeleteCourierVehicleRequest) returns (google.protobuf.Empty) {}
+	rpc GetCourierActiveVehicle(GetCourierActiveVehicleRequest) returns (CourierVehicle) {}
+	
+	rpc SearchCouriersByPhone(SearchCouriersByPhoneRequest) returns (SearchCouriersByPhoneResponse) {}
+
+	rpc CreateBranchCourier(CreateBranchCourierRequest) returns (google.protobuf.Empty) {}
+	rpc GetAllBranchCouriers(GetAllBranchCouriersRequest) returns (GetAllBranchCouriersResponse) {}
+	rpc GetAllCourierBranches(GetAllCourierBranchesRequest) returns (GetAllCourierBranchesResponse) {}
+	rpc DeleteBranchCourier(DeleteBranchCourierRequest) returns (google.protobuf.Empty) {}
+
+	rpc UpdateCourierIsWorking(UpdateCourierIsWorkingRequest) returns (google.protobuf.Empty) {}
+
+    rpc CreateCourierType(CreateCourierTypeRequest) returns (CourierTypeId) {}
+    rpc GetAllClientTypes(GetAllClientTypesRequest) returns (GetAllClientTypesResponse) {}
+    rpc GetCourierType(CourierTypeId) returns (CourierType) {}
+    rpc UpdateCourierType(CourierType) returns (CourierTypeId) {}
+    rpc DeleteCourierType(CourierTypeId) returns (google.protobuf.Empty) {}
+}
+
+
+message CreateCourierResponse {
+	Courier courier = 1;
+}
+
+message UpdateCourierResponse {
+	Courier courier = 1;
+}
+
+message DeleteCourierRequest {
+    string id = 1;
+}
+
+message GetCourierRequest {
+	string id = 1;
+}
+
+message GetCourierResponse {
+	Courier courier = 1;
+}
+
+message GetAllCouriersRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+	string shipper_id = 3;
+	string search = 4;
+	string courier_type_id = 5;
+}
+
+message GetAllCouriersResponse {
+	repeated Courier couriers = 1;
+	uint64 count = 2;
+}
+
+message GetAllClientTypesRequest {
+    int64 limit = 1;
+    int64 page = 2;
+	string shipper_id = 3;
+	string search = 4;
+}
+
+message GetCourierByPhoneRequest {
+	string shipper_id = 1;
+	string phone = 2;
+}
+
+message ExistsCourierRequest {
+	string shipper_id = 1;
+	string phone_number = 2;
+}
+
+message ExistsCourierResponse {
+	bool exists = 1;
+}
+
+message UpdateTokenRequest {
+	string id = 1;
+	string access = 2;
+}
+
+message UpdateFcmTokenRequest {
+	string id = 1;
+	string fcm_token = 2;
+}
+
+message UpdateLastSeenRequest {
+	string id = 1;
+}
+
+message GetAllDistributorCouriersRequest {
+	string distributor_id = 1;
+	uint64 limit = 2;
+    uint64 page = 3;
+}
+
+message GetAllDistributorCouriersResponse {
+	repeated Courier couriers = 1;
+	uint64 count = 2;
+}
+
+message BlockCourierRequest {
+	string id = 1;
+}
+
+message UnblockCourierRequest {
+	string id = 1;
+}
+
+message CreateCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+message UpdateCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+message GetCourierDetailsRequest {
+	string courier_id = 1;
+}
+
+message GetCourierDetailsResponse {
+	CourierDetails courier_details = 1;
+}
+
+message CreateCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message UpdateCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message GetCourierVehicleRequest {
+	string id = 1;
+}
+
+message GetCourierVehicleResponse {
+	CourierVehicle courier_vehicle = 1;
+}
+
+message GetAllCourierVehiclesRequest {
+	string courier_id = 1;
+}
+
+message GetAllCourierVehiclesResponse {
+	repeated CourierVehicle courier_vehicles = 1;
+}
+
+message DeleteCourierVehicleRequest {
+    string id = 1;
+}
+
+message SearchCouriersByPhoneRequest {
+	string phone = 1;
+	string shipper_id = 2;
+}
+
+message SearchCouriersByPhoneResponse {
+	repeated Courier couriers = 1;
+}
+
+message CreateBranchCourierRequest {
+	string branch_id = 1;
+	string courier_id = 2;
+}
+
+message GetAllBranchCouriersRequest {
+	string branch_id = 1;
+	uint64 limit = 2;
+    uint64 page = 3;
+}
+
+message GetAllBranchCouriersResponse {
+	repeated Courier couriers = 1;
+	uint64 count = 2;
+}
+
+message GetAllCourierBranchesRequest {
+	string courier_id = 1;
+}
+
+message GetAllCourierBranchesResponse {
+	repeated string branch_ids = 1;
+}
+
+message DeleteBranchCourierRequest {
+	string branch_id = 1;
+    string courier_id = 2;
+}
+
+message GetCourierActiveVehicleRequest {
+	string courier_id = 1;
+}
+
+message DeleteFcmTokenRequest {
+	string id = 1;
+}
+
+
+message UpdateCourierIsWorkingRequest {
+	string courier_id = 1;
+	bool is_working = 2;
+}

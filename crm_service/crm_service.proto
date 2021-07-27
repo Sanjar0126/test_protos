@@ -1,0 +1,109 @@
+syntax="proto3";
+
+package genproto;
+option go_package = "genproto/crm_service";
+
+import "google/protobuf/empty.proto";
+import "crm.proto";
+
+service CRMService {
+    rpc CreateOrder(CreateOrderRequest) returns (google.protobuf.Empty) {}
+    rpc GetMenu(GetMenuRequest) returns (GetMenuResponse) {}
+    rpc UpdateMenu(UpdateMenuRequest) returns (google.protobuf.Empty) {}
+    rpc GetBranches(GetBranchesRequest) returns (GetBranchesResponse) {}
+    rpc UpdateBranches(UpdateBranchesRequest) returns (google.protobuf.Empty) {}
+    rpc GetPaymentInfo(GetPaymentInfoRequest) returns (GetPaymentInfoResponse) {}
+    rpc HandleJowiWebhook(HandleJowiWebhookRequest) returns (google.protobuf.Empty) {}
+    rpc GetJowiDispatchers(google.protobuf.Empty) returns (GetBranchesResponse) {}
+    rpc GetIikoTerminals(GetIikoTerminalsRequest) returns (GetIikoTerminalsResponse) {}
+    rpc UpdateIikoTerminals(UpdateIikoTerminalsRequest) returns (google.protobuf.Empty) {}
+    rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (google.protobuf.Empty) {}
+    rpc GetJowiBill(GetJowiBillRequest) returns (GetJowiBillResponse) {}
+}
+
+message GetJowiBillRequest {
+    string shipper_id = 1;
+    string order_jowi_id = 2;
+}
+
+message GetJowiBillResponse {
+    string bill_id = 1;
+}
+
+message UpdateOrderStatusRequest {
+    string shipper_id = 1;
+    string order_id = 2;
+    string status_id = 3;
+}
+
+message GetIikoTerminalsRequest {
+    string branch_id = 1;
+    string search = 2;
+    int64 page = 3;
+    int64 limit = 4;
+}
+
+message UpdateIikoTerminalsRequest {
+    string shipper_id = 1;
+}
+
+message GetIikoTerminalsResponse {
+    repeated Terminal terminals = 1;
+    int64 count = 2;
+}
+
+message GetMenuResponse {
+    repeated Product products = 1;
+    int64 count = 2;
+}
+
+message HandleJowiWebhookRequest {
+    string order_id = 1;
+    string branch_id = 2;
+    int64 status = 3;
+}
+
+message CreateOrderRequest {
+    string shipper_id = 1;
+    string order_id = 2;
+}
+
+message GetMenuRequest {
+    string shipper_id = 1;
+    string search = 2;
+    string type = 3;
+    int64 page = 4;
+    int64 limit = 5;
+}
+
+message UpdateMenuRequest {
+    string shipper_id = 1;
+    string type = 2;
+}
+
+message GetPaymentInfoRequest {
+    string shipper_id = 1;
+    string order_id = 2;
+}
+
+message GetPaymentInfoResponse {
+    bool paid = 1;
+}
+
+message GetBranchesRequest {
+    string shipper_id = 1;
+    string search = 2;
+    string type = 3;
+    int64 page = 4;
+    int64 limit = 5;
+}
+
+message GetBranchesResponse {
+    repeated Branch branches = 1;
+    int64 count = 2;
+}
+
+message UpdateBranchesRequest {
+    string shipper_id = 1;
+    string type = 2;
+}

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/tracking_service";
+
+message Location {
+    double long = 1;
+    double lat = 2;
+}
+
+message Courier {
+    string first_name = 1;
+    string last_name = 2;
+    string phone = 3;
+    bool is_active = 4;
+    bool is_online = 5;
+}
+
+message Tracking {
+    string id = 1;
+    string courier_id = 2;
+    string created_at = 3;
+    Location location = 4;
+    string updated_at = 5;
+}
+
+message Order {
+    string id = 1;
+    uint64 order_num = 2;
+    string status_id = 3;
+}
+
+message CourierTracking {
+    Courier courier = 1;
+    Tracking tracking = 2;
+    repeated Order orders = 3;
+    uint64 orders_count = 4;
+}

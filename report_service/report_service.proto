@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/report_service";
+
+
+service ReportService {
+	rpc GetBranchesReportExcel(GetBranchesReportExcelRequest) returns (GetBranchesReportExcelResponse) {}
+	rpc GetCouriersReportExcel(GetCouriersReportExcelRequest) returns (GetCouriersReportExcelResponse) {}
+    rpc GetUserReviewsReportExcel(GetUserReviewsReportExcelRequest) returns (GetUserReviewsReportExcelResponse) {}
+	rpc GetTimeReportExcel(GetTimeReportExcelRequest) returns (GetTimeReportExcelResponse) {}
+}
+
+message GetUserReviewsReportExcelRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+    string branch_id = 4;
+    string courier_id = 5;
+    string client_id = 6;
+    string operator_id = 7;
+}
+
+message GetUserReviewsReportExcelResponse {
+    string file = 1;
+}
+
+message GetBranchesReportExcelRequest {
+	string shipper_id = 1;
+	string start_date = 2;
+	string end_date = 3;
+}
+
+message GetBranchesReportExcelResponse {
+	string file = 1;
+}
+
+message GetCouriersReportExcelRequest {
+	string shipper_id = 1;
+	string start_date = 2;
+	string end_date = 3;
+}
+
+message GetCouriersReportExcelResponse {
+	string file = 1;
+}
+
+
+message GetTimeReportExcelRequest {
+	string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+}
+
+message GetTimeReportExcelResponse {
+	string file = 1;
+}

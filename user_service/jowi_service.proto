@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/user_service";
+
+import "jowi.proto";
+import "google/protobuf/empty.proto";
+
+service JowiCredentialsService {
+    rpc Create(JowiCredentials) returns (JowiCredentialsId) {}
+    rpc Update(JowiCredentials) returns (google.protobuf.Empty) {}
+    rpc Get(JowiCredentialsId) returns (JowiCredentials) {}
+    rpc Delete(JowiCredentialsId) returns (google.protobuf.Empty) {}
+}
+
+message JowiCredentialsId {
+    string shipper_id = 1;
+}

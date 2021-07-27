@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/geo_service";
+
+message Geozone {
+    string id = 1;
+    string shipper_id = 2;
+    string name = 3;
+    repeated Point points = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+message Point {
+    float lat = 1;
+    float lon = 2;
+}
+
+message CheckPointGeozoneRequest {
+    string shipper_id = 1;
+    Point point = 2;
+}
+
+message CheckPointGeozoneResponse {
+    bool result = 1;
+}

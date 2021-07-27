@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/user_service";
+import "google/protobuf/wrappers.proto";
+
+message Customer {
+    string id =1;
+    string name = 2;
+    string phone = 3;
+    bool   is_blocked = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    string shipper_id = 7;
+    google.protobuf.StringValue fcm_token = 8;
+    google.protobuf.StringValue tg_chat_id = 9;
+    string bot_language = 10;
+    google.protobuf.StringValue platform_id = 11;
+    google.protobuf.StringValue date_of_birth = 12;
+    bool is_aggregate = 13;
+    google.protobuf.StringValue customer_type_id = 14;
+}
+
+message MontlyRegisteredCustomersReport {
+    uint64 day = 1;
+    uint64 count = 2;
+}

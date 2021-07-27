@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/catalog_service";
+
+import "google/protobuf/empty.proto";
+import "menu.proto";
+
+service MenuImageService {
+  rpc Get(GetMenuImageRequest) returns (MenuImage) {}
+  rpc Update(MenuImage) returns (google.protobuf.Empty) {}
+}
+
+message GetMenuImageRequest {
+  string shipper_id = 1;
+}

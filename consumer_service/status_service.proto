@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package consumer_service;
+
+option go_package = "genproto/consumer_service";
+
+import "status.proto";
+
+service StatusService {
+	rpc GetStatusNameByID(StatusID) returns (StatusName){}
+	rpc GetStatusIDByName(StatusName) returns (StatusID){}
+}

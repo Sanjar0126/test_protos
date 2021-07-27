@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/user_service";
+
+message IikoCredentials {
+    string shipper_id = 1;
+    string api_login = 2;
+    string created_at = 3;
+    string updated_at = 4;
+    string dispatcher_id = 5;
+}

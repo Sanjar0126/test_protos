@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/user_service";
+
+import "system_user.proto";
+import "google/protobuf/empty.proto";
+
+service SystemUserService {
+    rpc Create(SystemUser) returns (SystemUserId) {}
+    rpc Get(SystemUserId) returns (SystemUser) {}
+    rpc GetAll(GetAllSystemUsersRequest) returns (GetAllSystemUsersResponse) {}
+    rpc Update(SystemUser) returns (google.protobuf.Empty) {}
+    rpc Delete(DeleteSystemUserRequest) returns (google.protobuf.Empty) {}
+    rpc GetByUsername(GetSystemUserByUsernameRequest) returns (SystemUser) {}
+    rpc GetByCredentials(GetSystemUserByCredentialsRequest) returns (SystemUser) {}
+    rpc ChangePassword(ChangeSystemUserPasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message SystemUserId {
+    string id = 1;
+}
+
+message GetSystemUserByUsernameRequest {
+    string username = 1;
+}
+
+message GetSystemUserByCredentialsRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message ChangeSystemUserPasswordRequest {
+    string id = 1;
+    string password = 2;
+}
+
+message GetAllSystemUsersRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string search = 3;
+}
+
+message GetAllSystemUsersResponse {
+    repeated SystemUser system_users = 1;
+    uint64 count = 2;
+}
+
+message DeleteSystemUserRequest {
+    string id = 1;
+    string shipper_id = 2;
+}

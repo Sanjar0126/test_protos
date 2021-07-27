@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/content_service";
+
+import "common.proto";
+
+service InstructionService {
+    rpc Create (Instruction) returns (InstructionId) {}
+    rpc Update (Instruction) returns (Empty) {}
+    rpc GetAll (GetAllRequest) returns (GetAllInstructionsResponse) {}
+    rpc Get (InstructionId) returns (Instruction) {}
+    rpc Delete (InstructionId) returns (Empty) {}
+}
+
+message GetAllInstructionsResponse {
+    repeated Instruction instructions = 1;
+}
+
+message GetAllRequest {
+    string guide_id = 1;
+}
+
+message InstructionId {
+    string id = 1;
+    string guide_id = 2;
+}
+
+message Instruction {
+    string id = 1;
+    Language title = 2;
+    Language body = 3;
+    string guide_id = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}

@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+
+import "google/protobuf/empty.proto";
+import "distributor.proto";
+
+service DistributorService {
+	rpc Create(Distributor) returns (CreateDistributorResponse) {}
+	rpc Update(Distributor) returns (UpdateDistributorResponse) {}
+	rpc GetDistributor(GetDistributorRequest) returns (GetDistributorResponse) {}
+	rpc GetAllDistributors(GetAllDistributorsRequest) returns (GetAllDistributorsResponse) {}
+	rpc Delete(DeleteDistributorRequest) returns (google.protobuf.Empty) {}
+
+	rpc CreatePark(Park) returns (CreateParkResponse) {}
+	rpc UpdatePark(Park) returns (UpdateParkResponse) {}
+	rpc GetPark(GetParkRequest) returns (GetParkResponse) {}
+	rpc GetAllParks(GetAllParksRequest) returns (GetAllParksResponse) {}
+	rpc GetAllDistributorParks(GetAllDistributorParksRequest) returns (GetAllDistributorParksResponse) {}
+	rpc DeletePark(DeleteParkRequest) returns (google.protobuf.Empty) {}
+}
+
+message CreateDistributorResponse {
+	Distributor distributor = 1;
+}
+
+message UpdateDistributorResponse {
+	Distributor distributor = 1;
+}
+
+
+message DeleteDistributorRequest {
+    string id = 1;
+}
+
+message GetDistributorRequest {
+	string id = 1;
+}
+
+message GetDistributorResponse {
+	Distributor distributor = 1;
+}
+
+
+message GetAllDistributorsRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+}
+
+message GetAllDistributorsResponse {
+	repeated Distributor distributors = 1;
+	uint64 count = 2;
+}
+
+
+message CreateParkResponse {
+	Park park = 1;
+}
+
+message UpdateParkResponse {
+	Park park = 1;
+}
+
+message DeleteParkRequest {
+    string id = 1;
+}
+
+message GetParkRequest {
+	string id = 1;
+}
+
+message GetParkResponse {
+	Park park = 1;
+}
+
+message GetAllParksRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+}
+
+message GetAllParksResponse {
+	repeated Park parks = 1;
+	uint64 count = 2;
+}
+
+message GetAllDistributorParksRequest {
+	uint64 limit = 1;
+    uint64 page = 2;
+}
+
+message GetAllDistributorParksResponse {
+	repeated Park parks = 1;
+	uint64 count = 2;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package consumer_service;
+
+option go_package = "genproto/consumer_service";
+
+message StatusName {
+	string name = 1;
+}
+
+message StatusID {
+	string id = 1;
+}

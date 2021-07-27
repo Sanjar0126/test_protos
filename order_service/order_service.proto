@@ -1,0 +1,314 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/order_service";
+
+import "google/protobuf/empty.proto";
+import "order.proto";
+
+service OrderService {
+    rpc Create(Order) returns (CreateResponse) {}
+    rpc Get(GetRequest) returns (Order) {}
+    rpc GetByOrderNum(GetByOrderNumRequest) returns (Order) {}
+    rpc GetAll(OrdersRequest) returns (OrdersResponse) {}
+    rpc Update(Order) returns (google.protobuf.Empty) {}
+    rpc GetCustomerLastOrder(GetCustomerLastOrderRequest) returns (Order) {}
+    rpc GetBranchNewOrders(GetBranchNewOrdersRequest) returns (OrdersResponse) {}
+
+    rpc AttachJowiID(AttachJowiIDRequest) returns (google.protobuf.Empty) {}
+    rpc GetByJowiID(GetByJowiIDRequest) returns (Order) {}
+    rpc AttachIikoID(AttachIikoIDRequest) returns (google.protobuf.Empty) {}
+    rpc GetByIikoID(GetByIikoIDRequest) returns (Order) {}
+
+    rpc AddCourier(AddCourierRequest) returns (google.protobuf.Empty) {}
+    rpc RemoveCourier(RemoveCourierRequest) returns (google.protobuf.Empty) {}
+    rpc AddBranchID(AddBranchIDRequest) returns (google.protobuf.Empty) {}
+    
+    rpc ChangeStatus(ChangeStatusRequest) returns (google.protobuf.Empty) {}
+    rpc ChangeStatusStep(ChangeStatusStepRequest) returns (google.protobuf.Empty) {}
+    rpc ChangePaidStatus(ChangePaidStatusRequest) returns (google.protobuf.Empty) {}
+    rpc ChangePaymentType(ChangePaymentTypeRequest) returns (google.protobuf.Empty) {}
+    
+    rpc GetCustomerAddresses(GetCustomerAddressesRequest) returns (GetCustomerAddressesResponse) {}
+    rpc GetOrdersCountByStatuses(GetOrdersCountByStatusesRequest) returns (GetOrdersCountByStatusesResponse) {}
+    rpc CreateReview(Order) returns (google.protobuf.Empty) {}
+    
+    rpc GetOperatorsReport(GetReportsRequest) returns (GetOperatorsReportResponse) {}
+    rpc GetShipperReport(GetReportsRequest) returns (ShipperReport) {}
+    rpc GetBranchesReport(GetReportsRequest) returns (GetBranchesReportResponse) {}
+    rpc GetShippersReport(GetShippersReportRequest) returns (GetShippersReportResponse) {}
+    rpc GetProductsReport(GetProductsReportRequest) returns (GetProductsReportResponse) {}
+    rpc GetCouriersReport(GetCouriersReportRequest) returns (GetCouriersReportResponse) {}
+    rpc GetDashboardReport(GetDashboardReportRequest) returns (GetDashboardReportResponse) {}
+    rpc GetStatusTimeReport(GetStatusTimeReportRequest) returns (GetStatusTimeReportResponse) {}
+    rpc GetOperatorReport(GetOperatorReportRequest) returns (GetOperatorReportResponse) {}
+    rpc GetTimeReport(GetTimeReportRequest) returns (GetTimeReportResponse) {}
+
+    rpc GetCourierReport(GetCourierReportRequest) returns (GetCourierReportResponse) {}
+    rpc GetBranchReport(GetBranchReportRequest) returns (GetBranchReportResponse) {}
+    rpc UpdateOrderReviewSeen(UpdateReviewSeen) returns (google.protobuf.Empty) {}
+}
+
+message GetBranchNewOrdersRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string shipper_id = 3;
+    string branch_id = 4;
+    string start_date = 5;
+    string end_date = 6;
+    bool courier_accepts_first = 7;
+}
+
+message AttachIikoIDRequest {
+    string id = 1;
+    string iiko_id = 2;
+}
+
+message GetByIikoIDRequest {
+    string iiko_id = 1;
+}
+
+message GetByJowiIDRequest {
+    string jowi_id = 1;
+}
+
+message AttachJowiIDRequest {
+    string id = 1;
+    string jowi_id = 2;
+}
+
+message GetCustomerLastOrderRequest {
+    string customer_id = 1;
+    string shipper_id = 2;
+}
+
+message GetOperatorReportRequest {
+    string id = 1;
+    string shipper_id = 2;
+    string start_date = 3;
+    string end_date = 4;
+}
+
+message GetOperatorReportResponse {
+    OperatorReport report = 1;
+}
+
+message ChangePaymentTypeRequest {
+    string id = 1;
+    string payment_type = 2;
+}
+
+message ChangePaidStatusRequest {
+    string shipper_id = 1;
+    uint64 order_num = 2;
+    bool paid = 3;
+}
+
+message GetByOrderNumRequest {
+    string shipper_id = 1;
+    string order_num = 2;
+}
+
+message GetRequest {
+    string shipper_id = 1;
+    string id = 2;
+}
+
+message OrdersRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string shipper_id = 3;
+    string customer_id = 4;
+    string courier_id = 5;
+    repeated string branch_ids = 6;
+    repeated string status_ids = 7;
+    string start_date = 8;
+    string end_date = 9;
+    string delivery_type = 10;
+    bool courier_empty = 11;
+    uint32 external_order_id = 12;
+    bool paid = 13;
+    string source_type = 14;
+    string payment_type = 15;
+    string sort_by = 16;
+    string aggregator_id = 17;
+    bool review_seen = 18;
+    float range_time_from = 19;
+    float range_time_to = 20;
+    string is_reissued = 21;
+    string operator_id = 22;
+}
+
+
+message OrdersResponse {
+    repeated Order orders = 1;
+    uint64 count = 2;
+}
+
+message DeleteRequest {
+    string shipper_id = 1;
+    string id = 2;
+}
+
+message AddCourierRequest {
+    string shipper_id = 1;
+    string order_id = 2;
+    string courier_id = 3;
+}
+
+message RemoveCourierRequest {
+    string order_id = 1;
+    string shipper_id = 2;
+}
+
+message UpdateRequest {
+    string id = 1;
+    string column = 2;
+    string value = 3;
+}
+
+message ChangeStatusRequest {
+    string shipper_id = 1;
+    StatusNote status_note = 2;
+}
+
+message ChangeStatusStepRequest {
+    string step_id = 1;
+    string shipper_id = 2;
+}
+
+message CreateResponse {
+    string order_id = 1;
+    string external_order_id = 2;
+}
+
+message GetOrdersCountByStatusesRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+    repeated string status_ids = 4;
+}
+
+message GetOrdersCountByStatusesResponse {
+    message OrdersCount {
+        string status_id = 1;
+        uint64 count = 2;
+    }
+
+    repeated OrdersCount orders_count = 1;
+}
+
+message GetCustomerAddressesRequest {
+    string phone = 1;
+    string shipper_id = 2;
+    string search = 3;
+}
+
+message GetCustomerAddressesResponse {
+    repeated CustomerAddress addresses = 1;
+}
+
+message AddBranchIDRequest {
+    string order_id = 1;
+    string branch_id = 2;
+    string shipper_id = 3;
+}
+
+message GetReportsRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+}
+
+message GetShippersReportRequest {
+    string start_date = 1;
+    string end_date = 2;
+}
+
+message GetOperatorsReportResponse {
+    repeated OperatorReport reports = 1;
+}
+
+message GetBranchesReportResponse {
+    repeated BranchReport reports = 1;
+}
+
+message GetShippersReportResponse {
+    repeated ShipperReport reports = 1;
+}
+
+message GetProductsReportRequest {
+    string shipper_id = 1;
+    string branch_id = 2;
+    string start_date = 3;
+    string end_date = 4;
+}
+
+message GetProductsReportResponse {
+    repeated ProductReport reports = 1;
+}
+
+message GetCouriersReportRequest {
+	string shipper_id = 1;
+	string start_date = 2;
+    string end_date = 3;
+    string branch_id = 4;
+}
+
+message GetCouriersReportResponse {
+	repeated CourierReport reports = 1;
+}
+
+message GetDashboardReportRequest {
+    string shipper_id = 1;
+    uint32 month = 2;
+    uint32 year = 3;
+}
+
+message GetDashboardReportResponse {
+    repeated MonthlyOrdersReport monthly_orders_reports = 1;
+    repeated YearlyOrdersReport yearly_orders_reports = 2;
+}
+
+message GetStatusTimeReportRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+    string branch_id = 4;
+}
+
+message GetStatusTimeReportResponse {
+    StatusTimeReport report = 1;
+}
+
+message GetCourierReportRequest {
+	string shipper_id = 1;
+    string courier_id = 2;
+	string start_date = 3;
+    string end_date = 4;
+}
+
+message GetCourierReportResponse {
+	repeated CourierReport reports = 1;
+}
+
+message GetBranchReportRequest {
+	string shipper_id = 1;
+    string branch_id = 2;
+	string start_date = 3;
+    string end_date = 4;
+}
+
+message GetBranchReportResponse {
+    repeated BranchReport reports = 1;
+}
+
+message GetTimeReportRequest {
+    string shipper_id = 1;
+    string start_date = 2;
+    string end_date = 3;
+}
+
+message GetTimeReportResponse {
+    repeated BranchTimeReport reports = 1;
+}

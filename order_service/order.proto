@@ -1,0 +1,256 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/order_service";
+
+import "google/protobuf/wrappers.proto";
+
+message Location {
+    float long = 1;
+    float lat = 2;
+}
+
+message StatusNote {
+    string id = 1;
+    string order_id = 2;
+    string status_id = 3;
+    google.protobuf.StringValue description = 4;
+    string created_at = 5;
+}
+
+message Courier {
+    string id = 1;
+    string phone = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string vehicle_number = 5;
+} 
+
+message Fare {
+    string id = 1;
+    string name = 2;
+    uint64 delivery_time = 3;
+    float price_per_km = 4;
+    float min_price = 5;
+    float min_distance = 6;
+    bool is_active = 7;
+    string created_at = 8;
+    string updated_at = 9;
+    string deleted_at = 10;
+}
+
+message Transaction {
+    int64 create_time = 1;
+    int64 state = 2;
+}
+
+message Order {
+    string id = 1;
+    string client_name = 2;
+    Location to_location = 3;
+    string to_address = 4;
+    google.protobuf.StringValue courier_id = 5;
+    string fare_id = 6;
+    string status_id = 7;
+    string created_at = 8;
+    string description = 9;
+    string shipper_id = 10;
+    string creator_type_id = 11;
+    google.protobuf.StringValue system_user_id = 12;
+    repeated Step steps = 13;
+    Fare fare = 14;
+    float co_delivery_price = 15;
+    float delivery_price = 16;
+    Courier courier = 17;
+    string client_phone_number = 18;
+    string finished_at = 19;
+    float order_amount = 20;
+    uint64 external_order_id = 21;
+    string client_id = 22;
+    string payment_type = 23;
+    string source = 24;
+    google.protobuf.StringValue apartment = 25;
+    google.protobuf.StringValue building = 26;
+    google.protobuf.StringValue floor = 27;
+    google.protobuf.StringValue extra_phone_number = 28;
+    repeated StatusNote status_notes = 29;
+    google.protobuf.StringValue delivery_time = 30;
+    bool paid = 31;
+    google.protobuf.Int64Value rating = 32;
+    google.protobuf.StringValue review = 33;
+    string delivery_type = 34;
+    repeated Transaction transactions = 35;
+    ShipperUser shipper_user = 36;
+    google.protobuf.StringValue jowi_id = 37;
+    google.protobuf.StringValue iiko_id = 38;
+    google.protobuf.FloatValue distance = 39; 
+    google.protobuf.StringValue aggregator_id = 40;
+    Aggregator aggregator = 41;
+    bool is_reissued = 42;
+}
+
+message ShipperUser {
+    string id = 1;
+    string name = 2;
+    string phone = 3;
+}
+
+message Step {
+    string id = 1;
+    google.protobuf.StringValue branch_name = 2;
+    Location location = 3;
+    google.protobuf.StringValue address = 4;
+    google.protobuf.StringValue destination_address = 5;
+    google.protobuf.StringValue phone_number = 6;
+    repeated Product products = 7;
+    string description = 8;
+    uint64 order_no = 9;
+    string status = 10;
+    float step_amount = 11;
+    google.protobuf.Int64Value external_step_id = 12;
+    google.protobuf.StringValue branch_id = 13;
+}
+
+message Product {
+    string id = 1;
+    google.protobuf.StringValue name = 2;
+    float quantity = 3;
+    float price = 4;
+    float total_amount = 5;
+    google.protobuf.StringValue product_id = 6;
+    google.protobuf.Int64Value external_product_id = 7;
+    google.protobuf.StringValue description = 8;
+}
+
+message CustomerAddress {
+    Location location = 1;
+    string address = 2;
+    google.protobuf.StringValue apartment = 3;
+    google.protobuf.StringValue building = 4;
+    google.protobuf.StringValue floor = 5;
+    google.protobuf.StringValue extra_phone_number = 6;
+}
+
+message ShipperReport {
+    string name = 1;
+    uint64 total_orders_count = 2;
+    uint64 admin_panel_orders_count = 3;
+    uint64 app_orders_count = 4;
+    uint64 bot_orders_count = 5;
+    uint64 website_orders_count = 6;
+    float total_sum = 7;
+    float total_sum_cash = 8;
+    float total_sum_click = 9;
+    float total_sum_payme = 10;
+    float total_delivery_sum = 11;
+    float total_sum_payme_paid = 12;
+    float total_sum_click_paid = 13;
+    float total_cash_delivery_sum = 14;
+    float total_click_delivery_sum = 15;
+    float total_payme_delivery_sum = 16;
+    float total_sum_transfer = 17;
+    float total_transfer_delivery_sum = 18;
+    uint64 aggregate_orders_count = 19;
+}
+
+message OperatorReport {
+    string name = 1;
+    uint64 total_orders_count = 2;
+    uint64 admin_panel_orders_count = 3;
+    uint64 app_orders_count = 4;
+    uint64 bot_orders_count = 5;
+    uint64 website_orders_count = 6;
+    float total_sum = 7;
+    float total_sum_cash = 8;
+    float total_sum_click = 9;
+    float total_sum_payme = 10;
+    float total_delivery_sum = 11;
+    uint64 total_count_delivery = 12;
+    float total_sum_delivery = 13;
+    uint64 avg_order_time = 14;
+}
+
+message BranchReport {
+    string name = 1;
+    uint64 total_orders_count = 2;
+    uint64 admin_panel_orders_count = 3;
+    uint64 app_orders_count = 4;
+    uint64 bot_orders_count = 5;
+    uint64 website_orders_count = 6;
+    float total_sum = 7;
+    float total_sum_cash = 8;
+    float total_sum_click = 9;
+    float total_sum_payme = 10;
+    float total_delivery_sum = 11;
+    string date = 12;
+    float total_sum_payme_paid = 13;
+    float total_sum_click_paid = 14;
+    float total_cash_delivery_sum = 15;
+    float total_click_delivery_sum = 16;
+    float total_payme_delivery_sum = 17;
+    float total_sum_transfer = 18;
+    float total_transfer_delivery_sum = 19;
+}
+
+message ProductReport {
+    string product_name = 1;
+    uint64 total_products_count = 2;
+    float total_sum = 3;
+}
+
+message CourierReport {
+    string courier_name = 1;
+    uint64 total_orders_count = 2;
+    float total_sum = 3;
+    float total_sum_cash = 4;
+    float total_sum_click = 5;
+    float total_sum_payme = 6;
+    float total_delivery_sum = 7;
+    float total_cash_delivery_sum = 8;
+    float total_click_delivery_sum = 9;
+    float total_payme_delivery_sum = 10;
+    string date = 11;
+}
+
+message MonthlyOrdersReport {
+    uint32 day = 1;
+    uint32 finished_orders_count = 2;
+    uint32 canceled_orders_count = 3;
+    uint32 reissued_orders_count = 4;
+}
+
+message YearlyOrdersReport {
+    uint32 month = 1;
+    uint32 finished_orders_count = 2;
+    uint32 canceled_orders_count = 3;
+    uint32 reissued_orders_count = 4;
+}
+
+message StatusTimeReport {
+    string total_time_avg = 1;
+    string operator_accepting_avg = 2;
+    string vendor_preparing_avg = 3;
+    string courier_picking_avg = 4;
+    string delivering_time_avg = 5;
+}
+
+message BranchTimeReport {
+    string branch_name = 1;
+    int32 under_30 = 2;
+    int32 range_30_40 = 3;
+    int32 range_40_60 = 4;
+    int32 over_60 = 5;
+}
+
+message Aggregator {
+    string id = 1;
+    string name = 2;
+    string phone_number = 3;
+    string shipper_id = 4;
+}
+
+message UpdateReviewSeen {
+    string order_id = 1;
+    string shipper_id = 2;
+    string customer_id = 3;
+}

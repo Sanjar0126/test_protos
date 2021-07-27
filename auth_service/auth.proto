@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/auth_service";
+
+message UserRole {
+    string id = 1;
+    string shipper_id = 2;
+    string user_type_id = 3;
+    string name = 4;
+}
+
+message Permission {
+    string id = 1;
+    string user_type_id = 2;
+    string name = 3;
+    string key = 4;
+    repeated Action actions = 5;
+}
+
+message Action {
+    string id = 1;
+    string name = 2;
+    string key = 3;
+}

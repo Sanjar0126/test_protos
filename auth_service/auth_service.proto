@@ -1,0 +1,143 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/auth_service";
+
+import "auth.proto";
+import "google/protobuf/empty.proto";
+
+service AuthService {
+    rpc SystemUserLogin(LoginRequest) returns (SystemUserLoginResponse) {}
+
+    rpc ShipperUserLogin(LoginRequest) returns (ShipperUserLoginResponse) {}
+    
+    rpc BranchUserLogin(OTPLoginRequest) returns (google.protobuf.Empty) {}
+    rpc BranchUserConfirmLogin(OTPConfirmRequest) returns (BranchUserLoginResponse) {}
+
+    rpc CustomerLogin(OTPLoginRequest) returns (google.protobuf.Empty) {}
+    rpc CustomerConfirmLogin(OTPConfirmRequest) returns (CustomerLoginResponse) {}
+    rpc CustomerRegister(OTPRegisterRequest) returns (google.protobuf.Empty) {}
+    rpc CustomerConfirmRegister(OTPConfirmRequest) returns (CustomerLoginResponse) {}
+
+    rpc CourierLogin(OTPLoginRequest) returns (google.protobuf.Empty) {}
+    rpc CourierConfirmLogin(OTPConfirmRequest) returns (CourierLoginResponse) {}
+    
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
+    rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse) {}
+}
+
+message LoginRequest {
+    string shipper_id = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message OTPLoginRequest {
+    string shipper_id = 1;
+    string phone = 2;
+    string tag = 3;
+}
+
+message OTPRegisterRequest {
+    string shipper_id = 1;
+    string phone = 2;
+    string name = 3;
+}
+
+message OTPConfirmRequest {
+    string shipper_id = 1;
+    string platform_id = 2;
+    string phone = 3;
+    string code = 4;
+    string fcm_token = 5;
+    string tg_chat_id = 6;
+    string bot_language = 7;    
+}
+
+message SystemUserLoginResponse {
+    string id = 1;
+    string name = 2;
+    string username = 3;
+    string phone = 4;
+    bool is_blocked = 5;
+    string created_at = 6;
+    string updated_at = 7;
+    string access_token = 8;
+    string refresh_token = 9;
+}
+
+message ShipperUserLoginResponse {
+    string id = 1;
+    string name = 2;
+    string username = 3;
+    string phone = 4;
+    bool is_blocked = 5;
+    string created_at = 6;
+    string updated_at = 7;
+    string access_token = 8;
+    string refresh_token = 9;
+    UserRole user_role = 10;
+    repeated Permission permissions = 11;
+}
+
+message BranchUserLoginResponse {
+    string id = 1;
+    string name = 2;
+    string phone = 3;
+    bool is_active = 4;
+    bool is_blocked = 5;
+    string branch_id = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string access_token = 9;
+    string refresh_token = 10;
+    UserRole user_role = 11;
+    repeated Permission permissions = 12;
+}
+
+message CustomerLoginResponse {
+    string id = 1;
+    string name = 2;
+    string phone = 3;
+    bool is_blocked = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    string access_token = 7;
+    string refresh_token = 8;
+}
+
+message CourierLoginResponse {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string phone = 4;
+    bool is_active = 5;
+    bool is_blocked = 6;
+    string created_at = 7;
+    string updated_at = 8;
+    string access_token = 9;
+    string refresh_token = 10;
+}
+
+message RefreshTokenRequest {
+    string user_type_id = 1;
+    string refresh_token = 2;
+}
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+    UserRole user_role = 3;
+    repeated Permission permissions = 4;
+}
+
+message CheckPermissionRequest {
+    string user_type_id = 1;
+    string access_token = 2;
+}
+
+message CheckPermissionResponse {
+    bool has_permission = 1;
+    string user_id = 2;
+    string shipper_id = 3;
+}

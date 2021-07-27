@@ -1,0 +1,11 @@
+syntax="proto3";
+
+package genproto;
+option go_package="genproto/content_service";
+
+import "banner.proto";
+import "guide.proto";
+import "instruction.proto";
+import "promo.proto";
+import "review.proto";
+import "user_reviews.proto";

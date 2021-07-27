@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/user_service";
+
+import "shipper_user.proto";
+import "google/protobuf/empty.proto";
+
+service ShipperUserService {
+    rpc Create(ShipperUser) returns (ShipperUserId) {}
+    rpc Get(ShipperUserId) returns (ShipperUser) {}
+    rpc GetAll(GetAllShipperUsersRequest) returns (GetAllShipperUsersResponse) {}
+    rpc Update(ShipperUser) returns (google.protobuf.Empty) {}
+    rpc Delete(DeleteShipperUserRequest) returns (google.protobuf.Empty) {}
+    rpc GetByUsername(GetShipperUserByUsernameRequest) returns (ShipperUser) {}
+    rpc GetByCredentials(GetByCredentialsRequest) returns (ShipperUser) {}
+    rpc ChangePassword(ChangePasswordRequest) returns (google.protobuf.Empty) {}
+}
+
+message ChangePasswordRequest {
+    string id = 1;
+    string password = 2;
+}
+
+message ShipperUserId {
+    string id = 1;
+}
+
+message GetShipperUserByUsernameRequest {
+    string shipper_id = 1;
+    string username = 2;
+}
+
+message GetByCredentialsRequest {
+    string shipper_id = 1;
+    string username = 2;
+    string password = 3;
+}
+
+message GetAllShipperUsersRequest {
+    uint64 page = 1;
+    uint64 limit = 2;
+    string shipper_id = 3;
+    string user_role_id = 4;
+    string search = 5;
+}
+
+message GetAllShipperUsersResponse {
+    repeated ShipperUser shipper_users = 1;
+    uint64 count = 2;
+}
+
+message DeleteShipperUserRequest {
+    string id = 1;
+    string shipper_id = 2;
+}

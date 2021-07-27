@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package genproto;
+option go_package = "genproto/rkeeper_service";
+
+message RkeeperBranch {
+  string id = 1;
+  string guid = 2;
+  string branch_id = 3;
+  string shipper_id = 4;
+  string url = 5;
+  string table_id = 6;
+}
+
+message Menu {
+  string id = 2;
+  string name = 4;
+  string category_path = 5;
+}
+
+message RkeeperOrder {
+  string id = 1;
+  string order_id = 2;
+  string rkeeper_order_id = 3;
+  string branch_id = 4;
+  string shipper_id = 5;
+  string created_at = 6;
+  string sent_at = 7;
+  string send_count = 8;
+}

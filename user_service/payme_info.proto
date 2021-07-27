@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/user_service";
+
+
+message Payme {
+    string shipper_id = 1;
+    string merchant_id = 2;
+    string login = 3; // optional
+    string key = 4;
+    string created_at = 5;
+    string updated_at = 6;
+    string branch_id = 7;
+    string branch_name = 8;
+}
+
+message PaymeCredentials {
+    string token = 1;
+}

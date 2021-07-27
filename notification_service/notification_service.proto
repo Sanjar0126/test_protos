@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package genproto;
+
+option go_package="genproto/notification_service";
+
+import "google/protobuf/empty.proto";
+import "notification.proto";
+
+service NotificationService {
+    rpc Create(Notification) returns (google.protobuf.Empty) {};
+    rpc ChangeStatus(ChangeStatusRequest) returns (google.protobuf.Empty) {};
+    rpc GetAllUserNotifications(GetAllUserNotificationsRequest) returns (GetAllUserNotificationsResponse) {};
+
+}
+
+message ChangeStatusRequest {
+    string notification_id = 1;
+    string receiver_id = 2;
+    string status_id = 3;
+}
+
+message GetAllUserNotificationsRequest {
+    string receiver_id = 1;
+}
+
+message GetAllUserNotificationsResponse {
+    repeated Notification notifications = 1;
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/courier_service";
+import "google/protobuf/wrappers.proto";
+
+message Distributor {
+    string id = 1;
+    string access_token = 2;
+    string name = 3;
+    string phone = 4;
+    bool is_active = 5;
+    string created_at = 6;
+}
+
+message Location {
+    float long = 1;
+    float lat = 2;
+}
+
+message Park {
+    string id = 1;
+    string distributor_id = 2;
+    string name = 3;
+    Location location = 4;
+    google.protobuf.StringValue address = 5;
+    bool is_active = 6;
+    string created_at = 7;
+}
+
+

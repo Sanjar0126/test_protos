@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package genproto;
+option go_package="genproto/order_service";
+
+import "customers.proto";
+import "google/protobuf/empty.proto";
+
+service CustomerService {
+    rpc Create(CustomerOrderService) returns (CustomerOrderServiceId) {}   
+    rpc Get(CustomerOrderServiceId) returns (CustomerOrderService) {}
+    rpc Update(CustomerOrderService) returns (google.protobuf.Empty) {}
+    rpc GetOrInsert(CustomerOrderService) returns (CustomerOrderServiceId) {}
+    rpc UpdatePlatform(CustomerOrderService) returns (google.protobuf.Empty) {}
+    rpc UpdateTgChatId(CustomerOrderService) returns (google.protobuf.Empty) {}
+}
